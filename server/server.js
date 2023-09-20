@@ -8,8 +8,8 @@ app.get("/api/tasks", (req, res) => {
     res.json([
         {
            id: 1,
-           title: "get server working",
-           status: "todo"
+           title: "get server working (done)",
+           status: "done"
         },
         {
             id: 2,
