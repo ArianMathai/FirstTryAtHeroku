@@ -1,16 +1,19 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import React, { FormEvent, useState } from "react";
+import navbar from "./Navbar";
 
 function AddTaskForm() {
   const [title, setTitle] = useState("");
+  const navigate = useNavigate(); // navigation
 
-  function handleSubmit(event: FormEvent) {
+  async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-    fetch("/api/tasks", {
+    await fetch("/api/tasks", {
       method: "POST",
       body: JSON.stringify({ title }),
       headers: { "content-type": "application/json" },
     });
+    navigate("/"); // navigation back to homepage
   }
 
   return (

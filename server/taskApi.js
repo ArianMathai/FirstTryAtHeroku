@@ -2,10 +2,34 @@ import express from "express";
 
 export const taskApi = express.Router();
 
+export function createTasksRouter(db) {
+  taskApi.get("/api/tasks", async (req, res) => {
+    console.log("Inside /api/tasks");
+    const tasks = await db
+      .collection("tasks")
+      .find()
+      .filter({
+        title: {
+          $exists: true,
+        },
+      })
+      .toArray();
+    res.json(tasks);
+  });
+
+  taskApi.post("/api/tasks", async (req, res) => {
+    const tasks = req.body;
+    await db.collection("tasks").insertOne(tasks);
+    res.sendStatus(204);
+  });
+}
+
+/*
+
 const TASKS = [
   {
     id: 1,
-    title: "get server working (done)",
+    title: "get server working",
     status: "done",
   },
   {
@@ -28,3 +52,5 @@ taskApi.post("/api/tasks", (req, res) => {
   TASKS.push({ title, id: TASKS.length + 1, status: "todo" });
   res.sendStatus(204);
 });
+
+ */
