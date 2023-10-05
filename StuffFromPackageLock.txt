@@ -1,4 +1,5 @@
 "check": "npm run check:prettier && npm test",
+"build": "npm run check && npm run build:client",
     "check:prettier": "prettier --check .",
     "prettier": "prettier --write .",
     "test": "npm run test:client && npm run test:server",
